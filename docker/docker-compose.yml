@@ -1,0 +1,23 @@
+version: '2.4'
+services:
+  sip:
+    environment:
+        - TZ=America/Sao_Paulo
+    container_name: sipserver
+    build:
+      context: .
+      dockerfile: /home/data/compose/Dockerfile
+    network_mode: host
+    restart: unless-stopped
+    expose:
+        - 5060
+        - 10000-20000
+    volumes:
+        - /home/data/conf:/etc/asterisk
+        - /home/data/logs:/var/log/asterisk
+        - /home/data/sounds:/var/lib/asterisk/sounds/
+    logging:
+        driver: "json-file"
+        options:
+            max-size: 10m
+            max-file: "3"

@@ -2,18 +2,20 @@
 
 This repository should contain the basis to help you build a simple, reliable and flexible VoIP / SIP intercom system for residential or commercial buildings using free software only. On the market, you should probably find companies naming this solution as "smart doorbell".
 
-The system is composed of these parts:
+The system is composed of:
 - SIP server, the "brain" on the intercom system.
 - Various SIP clients connecting from the local network or the internet. 
 - The doorbell device. It's is a "fancy" SIP client able to control an electric door lock.
 
-Here is an example of how these devices are typically connected:
+Here is an example of how the devices can be connected:
 
 ![Network Diagram](./SIP_Network_Diagram_plain.svg)
 
 The SIP protocol and various device types available on the market allow us to build a system to meet our needs. We can use doorbell devices like the Niteray Q520 or Fanvil i30 equipped with a built-in camera and a dial pad. Other options would be the Akuvox R26 or Algo 8201 door phones, equipped with a single dial button. There are several makers and models out there, we should only need to make any the adjustments required on the "brain".
 
 We set up a SIP server running Asterisk on a Docker Container. On this repository, you should find helper scrips and the files required to build your Container. Asterisk on a Container is super lightweight so you can host your server on nearly any computer nowadays, including old laptops and Raspberry Pi models 3, 4 or similar.
+
+Another way to architect the solution would be hosting the SIP server on a virtual server far away from your local network. This project would still help you build the "brain" on the Cloud, but more adjustments to the Asterisk configuration template would be required.
 
 # Disclaimer
 

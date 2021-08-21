@@ -20,7 +20,9 @@ Another way to architect the solution would be hosting the SIP server on a virtu
 # Table of Contents
 
 - conf
-    This directory contains Asterisk configuration files.
+    * This directory contains Asterisk configuration files. The most relevant files are:
+        * The (extensions.conf)[./conf/extensions.conf] file is the (dialplan)[https://wiki.asterisk.org/wiki/display/AST/Dialplan], here we configure the dial groups and call route logic.
+        * The (pjsip.conf)[./conf/pjsip.conf] contains critical resource configuration like SIP users/clients credentials and other network configuration.
 - docker
     Dockerfile and docker-compose.yml files here.
 - logs

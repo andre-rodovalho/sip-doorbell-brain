@@ -24,7 +24,11 @@ Another way to architect the solution would be hosting the SIP server on a virtu
         * The [extensions.conf](./conf/extensions.conf) file is the dialplan, here we configure the dial groups and call route logic.
         * The [pjsip.conf](./conf/pjsip.conf) contains critical resource configuration like SIP users/clients credentials and other network configuration. Set [local_net](./conf/pjsip.conf#L5), [external_media_address](./conf/pjsip.conf#L10) and [external_signaling_address](./conf/pjsip.conf#L11) as required. Clients configuration start on [line 51](./conf/pjsip.conf#L51).
 - docker
-    Dockerfile and docker-compose.yml files here.
+    * Our Container image recipe is the [Dockerfile](./docker/Dockerfile) and the [docker-compose.yml](./docker/docker-compose.yml) help us configure our environment. Some settings you may want to update are:
+        * [Asterisk version](./docker/Dockerfile#L3)
+        * [Time Zone](./docker/Dockerfile#L5)
+        * [Dockerfile path](./docker-compose.yml#L9)
+        * [Volumes path](./docker/docker-compose.yml#L15)
 - logs
     No relevant files here yet. We configure our Container and scripts to create logs files under this directory.
 - scripts

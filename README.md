@@ -30,11 +30,11 @@ Another way to architect the solution would be hosting the SIP server on a virtu
         * [Dockerfile path](./docker-compose.yml#L9)
         * [Volumes path](./docker/docker-compose.yml#L15)
 - logs
-    No relevant files here yet. We configure our Container and scripts to create logs files under this directory.
+    * No relevant files here yet. We configure our Container and scripts to create logs files under this directory.
 - scripts
-    A few helper scripts to make your SIP server reliable.
+    * A few helper scripts to make your SIP server reliable in here.
 - sounds
-    Directory where we put Audio to be used by Asterisk.
+    * Directory where we put Audio to be used by Asterisk.
 
 # Disclaimer
 

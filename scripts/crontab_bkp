@@ -1,5 +1,5 @@
-* * * * * bash /home/data/scripts/ip_monitor.sh >/dev/null 2>&1
-* * * * * bash /home/data/scripts/sip_monitor.sh >/dev/null 2>&1
-*/30 * * * * bash /home/data/scripts/disk_monitor.sh >/dev/null 2>&1
-2 22 * * * bash /home/data/scripts/logs_monitor.sh >/dev/null 2>&1
+* * * * * /home/data/scripts/ip_monitor.sh >/dev/null 2>&1
+* * * * * /home/data/scripts/sip_monitor.sh >/dev/null 2>&1
+*/30 * * * * /home/data/scripts/disk_monitor.sh >/dev/null 2>&1
+2 22 * * * /home/data/scripts/logs_monitor.sh >/dev/null 2>&1
 0 3 * * * docker restart sipserver

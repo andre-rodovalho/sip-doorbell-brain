@@ -32,9 +32,16 @@ Another way to architect the solution would be hosting the SIP server on a virtu
 - logs
     * No relevant files here yet. We configure our Container and scripts to create logs files under this directory.
 - scripts
-    * A few helper scripts to make your SIP server reliable in here.
+    * Here we have a few helper scripts to run our SIP server reliably:
+        * The [crontab_bkp](./scripts/crontab_bkp) file is an example/suggested crontab file.
+        * The [disk_monitor.sh](./scripts/disk_monitor.sh) script helps monitor storage space usage by sending email notifications using msmtp.
+        * The [logs_monitor.sh](./scripts/logs_monitor.sh) script helps to keep the log files size under control reducing unnecessary storage space usage.
+        * The [ip_monitor.sh](./scripts/ip_monitor.sh) is useful for dynamic IP users. This script monitors a given hostname records and updates it as needed on the [duckdns.org](https://www.duckdns.org/) DDNS service.
+        * The [reference_IP.txt](./scripts/reference_IP.txt) file is a control file used by the sip_monitor.sh script.
+        * The [sip_monitor.sh](./scripts/sip_monitor.sh) script monitors the reference_IP.txt and restarts the SIP server Container as needed due to an IP address change.
+        * The [scripts.log](./scripts/scripts.log) file is where the scripts store actions/events/debug information.
 - sounds
-    * Directory where we put Audio to be used by Asterisk.
+    * Directory where we store audio/media to be used by Asterisk, our SIP server.
 
 # Disclaimer
 

@@ -134,6 +134,8 @@ The steps are the same on any Linux distro but the commands would only work on a
     ```
     systemctl restart fail2ban
     ```
+# Note
+We won't cover the steps to configure your modem/router/NAT settings here. You would need to configure your equipment to forward ports 5060 and the 10000-20000 range to your server in order to expose the SIP server to the public. Check your equipment user's manual for instructions.
 
 # Disclaimer
 

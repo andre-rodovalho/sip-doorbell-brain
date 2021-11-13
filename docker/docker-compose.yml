@@ -6,7 +6,7 @@ services:
     container_name: sipserver
     build:
       context: .
-      dockerfile: /home/data/compose/Dockerfile
+      dockerfile: /home/data/docker/Dockerfile
     network_mode: host
     restart: unless-stopped
     expose:

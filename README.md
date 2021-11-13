@@ -43,6 +43,65 @@ Another way to architect the solution would be hosting the SIP server on a virtu
 - sounds
     * Directory where we store audio/media to be used by Asterisk, our SIP server.
 
+# Installation process
+
+1. Install the Operating system on your hardware. Get OpenSSH server ready so you can access it remotely.
+1. Connect to the server
+    ```
+    ssh user@serverIP
+    sudo su
+    ```
+1. Create the directory where the project files should  sit in
+    ```
+    mkdir -p /home/data/
+    ```
+1. Install required software
+    ```
+    apt install git msmtp docker.io docker-compose
+    ```
+1. Clone this repository
+    ```
+    git clone https://gitlab.com/andre.rodovalho/sip-doorbell-brain.git /home/data2/sip-doorbell-brain/
+    ```
+1. Copy the required files and directories
+    ```
+    cp -r /home/data/sip-doorbell-brain/{conf,docker,logs,scripts,sounds} /home/data/
+    ```
+1. Build the SIP server Container
+    ```
+    docker build --tag sip-server - < /home/data/docker/Dockerfile
+    ```
+1. Configure an [SMTP server for msmtp](https://www.google.com/search?q=configure+msmtp)
+    ```
+    nano ~/.msmtprc # configure an SMTP server: 
+    ```
+1. Adjust the management scripts as required
+    ```
+    nano /home/data/scripts/disk_monitor.sh	# configure DESTINATION email address
+    nano /home/data/scripts/ip_monitor.sh	# configure DOMAIN and TOKEN
+    nano /home/data/scripts/sip_monitor.sh	# configure DOMAIN
+    chmod 744 /home/data/scripts/*.sh	# make all scripts executable
+    ```
+1. Configure your SIP server
+    ```
+    nano /home/data/conf/extensions.conf	# configure extensions
+    nano /home/data/conf/pjsip.conf		# configure SIP clients credentials
+    ```
+1. Start up the SIP server
+    ```
+    docker-compose -f /home/data/docker/docker-compose.yml up -d
+    ```
+1. Configure a SIP client
+1. Try connecting to the server
+1. Troubleshooting connectivity issues (if needed)
+    ```
+    docker exec -it sipserver asterisk -rvvv
+    ```
+1. Configure required scheduled jobs
+    ```
+    crontab -e
+    ```
+
 # Disclaimer
 
 Copyright (C) 2021-present Andre Campos Rodovalho.

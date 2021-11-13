@@ -44,6 +44,7 @@ Another way to architect the solution would be hosting the SIP server on a virtu
     * Directory where we store audio/media to be used by Asterisk, our SIP server.
 
 # Installation process
+The steps are the same on any Linux distro but the commands would only work on a debian-like distros.
 
 1. Install the Operating system on your hardware. Get OpenSSH server ready so you can access it remotely.
 1. Connect to the server
@@ -100,6 +101,38 @@ Another way to architect the solution would be hosting the SIP server on a virtu
 1. Configure required scheduled jobs
     ```
     crontab -e
+    ```
+## Additional (recommended) steps
+1. Install fail2ban
+	```
+	apt install fail2ban
+	```
+1. Configure a custom jail to stop brute-force attacks
+	```
+	nano /etc/fail2ban/jail.local
+	```
+	* The file contents can look like the below:
+	```
+	[DEFAULT]
+	ignoreip = 127.0.0.0/8 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16
+
+	[asterisk]
+	enabled  = true
+	filter = asterisk
+	action   = iptables-allports[name=SIP, protocol=all]
+	logpath  = /home/data/logs/messages
+	maxretry = 10
+
+	[recidive]
+	enabled  = true
+	logpath  = /var/log/fail2ban.log
+	banaction = %(banaction_allports)s
+	bantime  = 1w
+	findtime = 3d
+	```
+1. Restart the service to apply changes
+    ```
+    systemctl restart fail2ban
     ```
 
 # Disclaimer

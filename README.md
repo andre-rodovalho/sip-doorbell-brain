@@ -43,6 +43,100 @@ Another way to architect the solution would be hosting the SIP server on a virtu
 - sounds
     * Directory where we store audio/media to be used by Asterisk, our SIP server.
 
+# Installation process
+The steps are the same on any Linux distro but the commands would only work on a debian-like distros.
+
+1. Install the Operating system on your hardware. Get OpenSSH server ready so you can access it remotely.
+1. Connect to the server
+    ```
+    ssh user@serverIP
+    sudo su
+    ```
+1. Create the directory where the project files should  sit in
+    ```
+    mkdir -p /home/data/
+    ```
+1. Install required software
+    ```
+    apt install git msmtp docker.io docker-compose
+    ```
+1. Clone this repository
+    ```
+    git clone https://gitlab.com/andre.rodovalho/sip-doorbell-brain.git /home/data2/sip-doorbell-brain/
+    ```
+1. Copy the required files and directories
+    ```
+    cp -r /home/data/sip-doorbell-brain/{conf,docker,logs,scripts,sounds} /home/data/
+    ```
+1. Build the SIP server Container
+    ```
+    docker build --tag sip-server - < /home/data/docker/Dockerfile
+    ```
+1. Configure an [SMTP server for msmtp](https://www.google.com/search?q=configure+msmtp)
+    ```
+    nano ~/.msmtprc # configure an SMTP server: 
+    ```
+1. Adjust the management scripts as required
+    ```
+    nano /home/data/scripts/disk_monitor.sh	# configure DESTINATION email address
+    nano /home/data/scripts/ip_monitor.sh	# configure DOMAIN and TOKEN
+    nano /home/data/scripts/sip_monitor.sh	# configure DOMAIN
+    chmod 744 /home/data/scripts/*.sh	# make all scripts executable
+    ```
+1. Configure your SIP server
+    ```
+    nano /home/data/conf/extensions.conf	# configure extensions
+    nano /home/data/conf/pjsip.conf		# configure SIP clients credentials
+    ```
+1. Start up the SIP server
+    ```
+    docker-compose -f /home/data/docker/docker-compose.yml up -d
+    ```
+1. Configure a SIP client
+1. Try connecting to the server
+1. Troubleshooting connectivity issues (if needed)
+    ```
+    docker exec -it sipserver asterisk -rvvv
+    ```
+1. Configure required scheduled jobs
+    ```
+    crontab -e
+    ```
+## Additional (recommended) steps
+1. Install fail2ban
+	```
+	apt install fail2ban
+	```
+1. Configure a custom jail to stop brute-force attacks
+	```
+	nano /etc/fail2ban/jail.local
+	```
+	* The file contents can look like the below:
+	```
+	[DEFAULT]
+	ignoreip = 127.0.0.0/8 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16
+
+	[asterisk]
+	enabled  = true
+	filter = asterisk
+	action   = iptables-allports[name=SIP, protocol=all]
+	logpath  = /home/data/logs/messages
+	maxretry = 10
+
+	[recidive]
+	enabled  = true
+	logpath  = /var/log/fail2ban.log
+	banaction = %(banaction_allports)s
+	bantime  = 1w
+	findtime = 3d
+	```
+1. Restart the service to apply changes
+    ```
+    systemctl restart fail2ban
+    ```
+# Note
+We won't cover the steps to configure your modem/router/NAT settings here. You would need to configure your equipment to forward ports 5060 and the 10000-20000 range to your server in order to expose the SIP server to the public. Check your equipment user's manual for instructions.
+
 # Disclaimer
 
 Copyright (C) 2021-present Andre Campos Rodovalho.

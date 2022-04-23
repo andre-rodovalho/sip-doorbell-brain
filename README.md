@@ -66,7 +66,7 @@ The steps are the same on any Linux distro but the commands would only work on a
     ```
 1. Copy the required files and directories
     ```
-    cp -r /home/data/sip-doorbell-brain/{conf,docker,logs,scripts,sounds} /home/data/
+    cp -r /home/data2/sip-doorbell-brain/{conf,docker,logs,scripts,sounds} /home/data/
     ```
 1. Build the SIP server Container
     ```

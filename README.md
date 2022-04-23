@@ -70,7 +70,7 @@ The steps are the same on any Linux distro but the commands would only work on a
     ```
 1. Build the SIP server Container
     ```
-    docker build --tag sip-server - < /home/data/docker/Dockerfile
+    docker-compose -f /home/data/docker/docker-compose.yml build
     ```
 1. Configure an [SMTP server for msmtp](https://www.google.com/search?q=configure+msmtp)
     ```

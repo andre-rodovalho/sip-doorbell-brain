@@ -2,11 +2,9 @@ FROM debian:bullseye
 
 ENV ASTERISK_VERSION 18.11.2
 ENV ASTERISK_PACKAGE asterisk-${ASTERISK_VERSION}.tar.gz
-ENV TZ America/Sao_Paulo
 ARG DEBIAN_FRONTEND=noninteractive
 
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone \
-        && apt-get update -qq && apt-get -y upgrade -qq && apt-get install -y --no-install-recommends --no-install-suggests \
+RUN apt-get update -qq && apt-get -y upgrade -qq && apt-get install -y --no-install-recommends --no-install-suggests \
         g++ make wget patch libedit-dev uuid-dev libjansson-dev libxml2-dev sqlite3 libsqlite3-dev libssl-dev \
         && cd /usr/src && wget http://downloads.asterisk.org/pub/telephony/asterisk/${ASTERISK_PACKAGE} \
         && tar xvzf ${ASTERISK_PACKAGE} && rm ${ASTERISK_PACKAGE} && cd asterisk-${ASTERISK_VERSION} \

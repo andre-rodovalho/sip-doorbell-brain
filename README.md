@@ -26,8 +26,8 @@ Another way to architect the solution would be hosting the SIP server on a virtu
 - docker
     * Our Container image recipe is the [Dockerfile](./docker/Dockerfile) and the [docker-compose.yml](./docker/docker-compose.yml) help us configure our environment. Some settings you may want to update are:
         * [Asterisk version](./docker/Dockerfile#L3)
-        * [Time Zone](./docker/Dockerfile#L5)
-        * [Dockerfile path](./docker-compose.yml#L9)
+        * [Time Zone](./docker/docker-compose.yml#L5)
+        * [Dockerfile path](./docker/docker-compose.yml#L9)
         * [Volumes path](./docker/docker-compose.yml#L15)
 - logs
     * No relevant files here yet. We configure our Container and scripts to create logs files under this directory.

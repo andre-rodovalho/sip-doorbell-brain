@@ -119,15 +119,21 @@ The steps are the same on any Linux distro but the commands would only work on a
 	[asterisk]
 	enabled  = true
 	filter = asterisk
-	action   = iptables-allports[name=SIP, protocol=all]
+	port     = 5060,5061
+	action   = iptables-allports[name=asterisk, protocol=all]
 	logpath  = /home/data/logs/messages
 	maxretry = 10
+	findtime = 1800
+	bantime = 3d
+	#backend = auto
 
 	[recidive]
 	enabled  = true
+	maxretry = 3
 	logpath  = /var/log/fail2ban.log
-	banaction = %(banaction_allports)s
-	bantime  = 1w
+	#banaction = %(banaction_allports)s
+	action   = iptables-allports[name=recidive, protocol=all]
+	bantime  = 1m
 	findtime = 3d
 	```
 1. Restart the service to apply changes

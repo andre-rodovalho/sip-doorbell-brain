@@ -119,7 +119,7 @@ The steps are the same on any Linux distro but the commands would only work on a
 	[asterisk]
 	enabled  = true
 	filter = asterisk
-	port     = 5060,5061
+	port     = 5060
 	action   = iptables-allports[name=asterisk, protocol=all]
 	logpath  = /home/data/logs/messages
 	maxretry = 10
@@ -140,6 +140,11 @@ The steps are the same on any Linux distro but the commands would only work on a
     ```
     systemctl restart fail2ban
     ```
+1. Enable the service
+    ```
+    systemctl enable fail2ban
+    ```
+
 # Note
 We won't cover the steps to configure your modem/router/NAT settings here. You would need to configure your equipment to forward ports 5060 and the 10000-20000 range to your server in order to expose the SIP server to the public. Check your equipment user's manual for instructions.
 
